@@ -5,8 +5,8 @@ _build-dir/
 _tmp/
 _repo/
 src/precompiled/
-src/free.toq.finden.gresource.c
+src/io.github.supertoq.finden.gresource.c
 src/finden
-src/toq-finden
-src/miniterm/toq-miniterm
-free.toq.finden.flatpak
+src/supertoq-finden
+src/miniterm/supertoq-miniterm
+io.github.supertoq.finden.flatpak

@@ -1,19 +1,18 @@
-/* FINDEN is part of my learning project;
- * toq 2025  LICENSE: BSD 2-Clause "Simplified"
+/* Finden Copyright (c) 2025 - 2026 supertoq;
+ * LICENSE: BSD 2-Clause "Simplified"
  *
  *
  *
- * gcc $(pkg-config --cflags gtk4 libadwaita-1) -o finden main.c config.c free.toq.finden.gresource.c $(pkg-config --libs gtk4 libadwaita-1)
+ * gcc $(pkg-config --cflags gtk4 libadwaita-1) -o finden main.c config.c io.github.supertoq.finden.gresource.c $(pkg-config --libs gtk4 libadwaita-1)
  *
  * Please note:
  * The Use of this code and execution of the applications is at your own risk, I accept no liability!
  *
- *
  */
-#define APP_VERSION    "1.0.1"//_5
-#define APP_ID         "free.toq.finden"
+#define APP_VERSION    "1.0.2"//_0
+#define APP_ID         "io.github.supertoq.finden"
 #define APP_NAME       "Finden"
-#define APP_DOMAINNAME "toq-finden"
+#define APP_DOMAINNAME "supertoq-finden"
 
 #define TMUX_SOCKET    "finden_socket"
 #define TMUX_SESSION   "finden"
@@ -79,6 +78,23 @@ static void find_terminals(void)
     /* --- 1.1 Abbruch, falls init_environment fehlschlägt */
     if (!app_dir) {g_warning("[t] Abort: variable app_dir was not set!\n"); 
     return; } // gesamte Funktion beenden bei fehlenden app_dir
+
+    /* --- 1.2 Pfad zu miniterm im selben Verzeichnis suchen */
+    gchar *miniterm_path = g_build_filename(app_dir, "toq-miniterm", NULL);
+
+    /* --- 1.3 Prüfen, ob miniterm existiert und ausführbar ist */
+    if (g_file_test(miniterm_path, G_FILE_TEST_IS_EXECUTABLE)) {
+        glob_path_miniterm = g_strdup(miniterm_path);
+        glob_mini          = "toq-miniterm";
+
+        g_print("[t1] %s found in %s\n", glob_mini, glob_path_miniterm);
+        g_free(miniterm_path);
+
+    }  else {
+         glob_path_miniterm = g_find_program_in_path ("toq-miniterm");
+         glob_mini          = "toq-miniterm";
+         g_print("[t1] %s found in %s\n", glob_mini, glob_path_miniterm);
+    }
 
     /* ----- 2. System-Terminal ermitteln --------------------------- */
     if (!glob_term_name) {
@@ -148,13 +164,13 @@ static void show_about(GSimpleAction *action, GVariant *parameter, gpointer user
     AdwAboutDialog *about = ADW_ABOUT_DIALOG(adw_about_dialog_new());
     adw_about_dialog_set_application_name(about, APP_NAME);
     adw_about_dialog_set_version(about, APP_VERSION);
-    adw_about_dialog_set_developer_name(about, "super-toq");
-    adw_about_dialog_set_website(about, "https://github.com/super-toq/Finden");
+    adw_about_dialog_set_developer_name(about, "supertoq");
+    adw_about_dialog_set_website(about, "https://github.com/supertoq/Finden");
 
     /* Lizenz wird als „custom“ angegeben */
     adw_about_dialog_set_license_type(about, GTK_LICENSE_BSD);
     adw_about_dialog_set_license(about,
-        "Copyright © 2025, super-toq\n\n"
+        "Copyright © 2025 - 2026, supertoq\n\n"
         "This program comes WITHOUT ANY WARRANTY.\n"
         "Follow the link to view the license details: "
         "<a href=\"https://opensource.org/license/BSD-2-Clause\"><b>BSD 2-Clause License</b></a>\n"
@@ -176,16 +192,16 @@ static void show_about(GSimpleAction *action, GVariant *parameter, gpointer user
     GtkWindow *parent = GTK_WINDOW(gtk_widget_get_root(GTK_WIDGET(
     gtk_application_get_active_window(GTK_APPLICATION(app)) )));
     adw_dialog_present(ADW_DIALOG(about), GTK_WIDGET(parent));
-}
+} // Ende About-Dialog
 
-/* ----- Hife Popover ------------------------------------------------------------------- */
+
+/* ----- Hife-Popover ------------------------------------------------------------------- */
 static void on_help_button_clicked(GtkButton *button, gpointer user_data)
 {
     /* Fokus zurück auf das Suchfeld, gilt für alle Checkboxen */
     UiRefs *refs = user_data;
     gtk_widget_grab_focus(GTK_WIDGET(refs->search_entry));
-}   // Ende Help-Button
-
+}
 
 /* ----- In Einstellungen: Schalter1-Toggle --------------------------------------------- */
 static void on_settings_miniterm_switch_row_toggled(GObject *object, GParamSpec *pspec, gpointer user_data)
@@ -254,10 +270,10 @@ static void show_settings(GSimpleAction *action, GVariant *parameter, gpointer u
      _("Wenn Sie Miniterm nicht benutzen wollen, wird automatisch das systemeigene Terminal verwendet."));
     /* Schalter-Aktivierung abhängig von gesetzten g_cfg.miniterm_enable Wert: */
     adw_switch_row_set_active(ADW_SWITCH_ROW(miniterm_switch_row), g_cfg.miniterm_enable);
-    gtk_widget_set_sensitive(GTK_WIDGET(miniterm_switch_row), FALSE);      //Aktiviert/Deaktiviert
+    gtk_widget_set_sensitive(GTK_WIDGET(miniterm_switch_row), FALSE);    //Aktiviert/Deaktiviert
     /* ----- AdwSwitchRow1-Miniterm verbinden... ----- */
-    //g_signal_connect(miniterm_switch_row, "notify::active",              // Verbindung Deaktiviert!
-    //                                      G_CALLBACK(on_settings_miniterm_switch_row_toggled), NULL);
+    g_signal_connect(miniterm_switch_row, "notify::active",              // Verbindung Deaktiviert!
+                                        G_CALLBACK(on_settings_miniterm_switch_row_toggled), NULL);
 
     /* ----- AdwSwitchRow2-Tmux verbinden... ----- */
     g_signal_connect(use_tmux_switch_row, "notify::active", 
@@ -881,7 +897,17 @@ static void on_search_button_clicked(GtkButton *button, gpointer user_data)
     /* 7. ---- Terminal im System auswählen --------------------------------------------- */
     gchar *term_path = NULL;
 
-      /* (aus früheren T2. miniterm = false, Terminalauswahl hier einbauen !!)  */
+   /* T1. miniterm = true                     --- aktuell nicht aktiv!! */
+   if (g_cfg.miniterm_enable) {
+        printf("[t] In settings, miniterm is enabled!\n");
+        /* t1.1 miniterm-Pfad global hinterlegt? */
+        if (glob_mini && g_str_has_prefix(glob_mini, "toq-miniterm")) {
+            /* t1.2 miniterm-Pfad als Terminal-Pfad übergeben */
+            glob_term_path = NULL;
+            glob_term_path = glob_path_miniterm; // Miniterm anstelle des Systemterminals
+        }
+   } else {
+      /* T2. miniterm = false;,    !!    Terminalauswahl hier später einbauen !!            */
       term_path = glob_term_path;
 
       /* kein Terminal */
@@ -896,7 +922,9 @@ static void on_search_button_clicked(GtkButton *button, gpointer user_data)
             g_free(contexts.find_cmd);
             return;
       }
-//   } //Ende von Else
+   } //Ende von Else
+
+   g_print("[t] Known path to miniterm = %s\n", term_path); // Terminal-Pfad zum testen !!
 
     /* 8. Erweiterte Terminal-Option bestimmen ------------------------------------------ */
     const gchar *term_option;     // entsprechende zum Terminal passende Option erstellen
@@ -956,9 +984,6 @@ static void on_search_button_clicked(GtkButton *button, gpointer user_data)
             g_warning("tmux Session check faulty.");
         }
     }
-
-    
-
 
     /* term_path war entweder g_strdup(mini_path) oder Rückgabe von g_find_program_in_path() */
     /* term_path ist Ergebnis von g_find_program_in_path(), welches ein Zeiger auf glob_term_path hat!
@@ -1275,8 +1300,8 @@ int main(int argc, gchar **argv)
     g_resources_register(resources_get_resource());   // reicht für Icon innerhalb der App
 
 
-    init_environment(); // Environment ermitteln, global in config.c
-    init_config();      // Config File laden/erstellen in config.c
+    init_environment(); // Config.c: Environment ermitteln
+    init_config();      // Config.c: Config File laden/erstellen
        //g_print("Settings load miniterm value: %s\n", g_cfg.miniterm_enable ? "true" : "false"); // testen !!
        //g_print("Settings load use_tmux value: %s\n", g_cfg.use_tmux ? "true" : "false"); // testen !!
 

@@ -1,11 +1,11 @@
 [Desktop Entry]
 Name=Finden
 GenericName=Finden
-Comment=Little search
-Comment[en_US]=little search
+Comment=Little search tool
+Comment[en_US]=little search tool
 Comment[de]=Kleine Suche
-Exec=toq-finden
-Icon=free.toq.finden
+Exec=supertoq-finden
+Icon=io.github.supertoq.finden
 Terminal=false
 Type=Application
 Categories=Utility;GTK;

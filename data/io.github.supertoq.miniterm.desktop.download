@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=miniterm
-Comment=Minit Terminal
-Exec=toq-miniterm
-Icon=free.toq.miniterm
+Comment=Mini Terminal Tool
+Exec=supertoq-miniterm
+Icon=io.github.supertoq.miniterm
 Terminal=false
 NoDisplay=true
 Type=Application

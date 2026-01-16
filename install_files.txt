@@ -1,6 +1,6 @@
-/usr/bin/toq-finden
-/usr/share/locale/en_US/LC_MESSAGES/toq-finden.mo
-/usr/share/locale/en_GB/LC_MESSAGES/toq-finden.mo
-/usr/share/locale/pl/LC_MESSAGES/toq-finden.mo
-/usr/share/icons/hicolor/scalable/apps/free.toq.finden.svg
-/usr/share/applications/free.toq.finden.desktop
+/usr/bin/supertoq-finden
+/usr/share/locale/en_US/LC_MESSAGES/supertoq-finden.mo
+/usr/share/locale/en_GB/LC_MESSAGES/supertoq-finden.mo
+/usr/share/locale/pl/LC_MESSAGES/supertoq-finden.mo
+/usr/share/icons/hicolor/scalable/apps/io.github.supertoq.finden.svg
+/usr/share/applications/io.github.supertoq.finden.desktop

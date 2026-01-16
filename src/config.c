@@ -1,5 +1,10 @@
-/*
- * Implementierung: • init_environment() ermittelt app_dir und config_path. • init_config() lädt (oder erzeugt) die *.cfg‑Datei, füllt g_cfg.miniterm_enable. • save_config() schreibt zurück. • config_cleanup() räumt auf.
+/* config.c
+ *
+ * Implementierung: 
+ * • init_environment()
+ * • init_config()
+ * • save_config()
+ * • config_cleanup()
  *
  *
  * Version 2025-12-19
@@ -46,7 +51,7 @@ void init_environment (void)
         return;
     }
 
-    config_path = g_build_filename (home, ".config", "toq-finden", "finden.cfg", NULL);
+    config_path = g_build_filename (home, ".config", "supertoq-finden", "finden.cfg", NULL);
 }
 
 
