@@ -1,11 +1,9 @@
-<img src="data/icons/icon1.svg" height="128">
+<img src="data/icons/icon1.svg" height="64">
 
 # Finden
 A small Gnome desktop application to find items on your computer that you are looking for.  
 
 ![finden](data/img/finden_img_light1.png?raw=true) 
-  
-![finden](data/img/finden_img_light3.png?raw=true)
   
   
 **Finden** \[ˈfɪn.dən] is a very simple frontend for the Linux command “find”. It was one of my first programming attempts, incorporating the functionality into an Libadwaita window and also, for the first time, creating a Meson configuration for installation. My App Finden is far from finished and continues to present new challenges for me to expand it. This isn’t about developing a professional app; it’s simply about enjoying the process of building applications.  
