@@ -1,4 +1,4 @@
-<img src="data/icons/icon1.svg" height="64">
+<img src="data/icons/io.github.supertoq.finden.svg" height="64">
 
 # Finden
 A small Gnome desktop application to find items on your computer that you are looking for.  
@@ -51,5 +51,5 @@ Go to the download folder from git clone and run the script:
   
   
 > [!Note]  
-> **This code is part of my learning project. Use of the code and execution of the application is at your own risk; I accept no liability!**
+> This code is part of my learning project. Use of the code and execution of the application is at your own risk; I accept no liability!
   
