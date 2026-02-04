@@ -11,17 +11,17 @@ A small Gnome desktop application to find items on your computer that you are lo
 ## Installing:  
 
 ### Dependencies:
-## Ubuntu/Debian:  
+#### Ubuntu/Debian:  
 ```
 sudo apt update && sudo apt install libglib2.0-dev libgtk-4-dev libadwaita-1-dev ninja-build meson
 ```  
 
-## Fedora:  
+#### Fedora:  
 ```
 sudo dnf upgrade && sudo dnf install glib2-devel gtk4-devel libadwaita-devel ninja-build meson
 ```  
 
-## Arch Linux:  
+#### Arch Linux:  
 ```
 sudo pacman -Syu && sudo pacman -S glib2 gtk4 libadwaita ninja meson
 ```  
