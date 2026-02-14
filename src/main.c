@@ -9,7 +9,7 @@
  * The Use of this code and execution of the applications is at your own risk, I accept no liability!
  *
  */
-#define APP_VERSION    "1.0.2"//_0
+#define APP_VERSION    "1.0.3"//_0
 #define APP_ID         "io.github.supertoq.finden"
 #define APP_NAME       "Finden"
 #define APP_DOMAINNAME "supertoq-finden"
@@ -102,6 +102,7 @@ static void find_terminals(void)
             "konsole",
             "gnome-terminal",
             "kgx",
+            "ptyxis",
             "terminator",
             "kitty",
             "xfce4-terminal",
@@ -931,12 +932,13 @@ static void on_search_button_clicked(GtkButton *button, gpointer user_data)
     if (g_str_has_suffix(glob_term_name, "gnome-terminal") ||
           g_str_has_suffix(glob_term_name, "toq-miniterm") ||
            g_str_has_suffix(glob_term_name, "kgx") ||
-            g_str_has_suffix(glob_term_name, "terminator") ||
-             g_str_has_suffix(glob_term_name, "tilix") ||
-              g_str_has_suffix(glob_term_name, "kitty") ||
-               g_str_has_suffix(glob_term_name, "alacritty") ||
-                g_str_has_suffix(glob_term_name, "foot") ||
-                 g_str_has_suffix(glob_term_name, "wezterm"))
+            g_str_has_suffix(glob_term_name, "kgx") ||          
+             g_str_has_suffix(glob_term_name, "terminator") ||
+              g_str_has_suffix(glob_term_name, "tilix") ||
+               g_str_has_suffix(glob_term_name, "kitty") ||
+                g_str_has_suffix(glob_term_name, "alacritty") ||
+                 g_str_has_suffix(glob_term_name, "foot") ||
+                  g_str_has_suffix(glob_term_name, "wezterm"))
         term_option = "--";
     else if (g_str_has_suffix(glob_term_name, "xfce4-terminal")) {  // Xfce4-Terminal Option "-x"
         term_option = "-x"; 

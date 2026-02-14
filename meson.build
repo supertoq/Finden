@@ -24,7 +24,7 @@ gresource_xml = join_paths(src_dir, 'io.github.supertoq.finden.gresource.xml')
 # Dependencies
 glib_dep    = dependency('glib-2.0', required : true)
 gtk_dep     = dependency('gtk4', required : true)
-adwaita_dep = dependency('libadwaita-1', version: '>= 1.8.alpha', required : true)
+adwaita_dep = dependency('libadwaita-1', version: '>= 1.6.alpha', required : true)
 gnome = import('gnome')
 
 # Remove "unused" warnings
