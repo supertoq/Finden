@@ -4,6 +4,9 @@ _build-dir/
 .flatpak-builder/
 _tmp/
 _repo/
+en_GB.mo
+en_US.mo
+pl.mo
 src/precompiled/
 src/io.github.supertoq.finden.gresource.c
 src/finden
