@@ -932,7 +932,7 @@ static void on_search_button_clicked(GtkButton *button, gpointer user_data)
     if (g_str_has_suffix(glob_term_name, "gnome-terminal") ||
           g_str_has_suffix(glob_term_name, "toq-miniterm") ||
            g_str_has_suffix(glob_term_name, "kgx") ||
-            g_str_has_suffix(glob_term_name, "kgx") ||          
+  //          g_str_has_suffix(glob_term_name, "...") ||          
              g_str_has_suffix(glob_term_name, "terminator") ||
               g_str_has_suffix(glob_term_name, "tilix") ||
                g_str_has_suffix(glob_term_name, "kitty") ||
